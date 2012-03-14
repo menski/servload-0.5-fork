@@ -754,34 +754,37 @@ svl_request_http_parse(svl_request_http_t *request, svl_url_t *url, char *line) 
     const char *host, *user, *date = NULL, *method = NULL, *path, *version;
     const char *status = NULL, *bytes, *agent = NULL; /* agent is optional */
     unsigned int i;
+    static int lineno = 0;
+    char *full_line = strdup(line);
+    lineno++;
 
     if ((host = strsep(&line, " ")) == NULL || strlen(host) == 0)
-        errx(EX_DATAERR, "host failed");
+        errx(EX_DATAERR, "host failed\n%d: %s", lineno, full_line);
     if (strsep(&line, " ") == NULL) /* skip ident */
-        errx(EX_DATAERR, "ident failed");
+        errx(EX_DATAERR, "ident failed\n%d: %s", lineno, full_line);
     if ((user = strsep(&line, " ")) == NULL || strlen(user) == 0)
-        errx(EX_DATAERR, "user failed");
+        errx(EX_DATAERR, "user failed\n%d: %s", lineno, full_line);
     if (strsep(&line, "[") == NULL || /* skip date start */
         (date = strsep(&line, "]")) == NULL || strlen(date) == 0)
-        errx(EX_DATAERR, "date failed");
+        errx(EX_DATAERR, "date failed\n%d: %s", lineno, full_line);
     if (strsep(&line, "\"") == NULL || /* skip request start */
         (method = strsep(&line, " ")) == NULL || strlen(method) == 0)
-        errx(EX_DATAERR, "method failed");
+        errx(EX_DATAERR, "method failed\n%d: %s", lineno, full_line);
     if ((path = strsep(&line, " ")) == NULL || strlen(path) == 0)
-        errx(EX_DATAERR, "path failed");
+        errx(EX_DATAERR, "path failed\n%d: %s", lineno, full_line);
     if ((version = strsep(&line, "\"")) == NULL || strlen(version) == 0)
-        errx(EX_DATAERR, "version failed");
+        errx(EX_DATAERR, "version failed\n%d: %s", lineno, full_line);
     if (strsep(&line, " ") == NULL || /* skip space before status */
         (status = strsep(&line, " ")) == NULL || strlen(status) == 0)
-        errx(EX_DATAERR, "status failed");
+        errx(EX_DATAERR, "status failed\n%d: %s", lineno, full_line);
     if ((bytes = strsep(&line, " ")) == NULL || strlen(bytes) == 0)
-        errx(EX_DATAERR, "bytes failed");
+        errx(EX_DATAERR, "bytes failed\n%d: %s", lineno, full_line);
     if (line != NULL && strlen(line) > 0) { /* check if combined log */
         if (strsep(&line, "\"") == NULL || strsep(&line, "\"") == NULL) /* skip referrer */
-            errx(EX_DATAERR, "referrer failed");
+            errx(EX_DATAERR, "referrer failed\n%d: %s", lineno, full_line);
         if (strsep(&line, "\"") == NULL || /* skip agent start */
             (agent = strsep(&line, "\"")) == NULL)
-            errx(EX_DATAERR, "agent failed");
+            errx(EX_DATAERR, "agent failed\n%d: %s", lineno, full_line);
     }
     if (agent == NULL || strcmp(agent, "-") == 0)
         agent = "servload/"SVL_VERSION;
@@ -804,9 +807,10 @@ svl_request_http_parse(svl_request_http_t *request, svl_url_t *url, char *line) 
     svl_asprintf(&((svl_request_t *)request)->key, "%s%s", 
                  (strcmp(user, "-") == 0) ? host : user, agent);
     if (strcmp(bytes, "-") != 0 && sscanf(bytes, "%lu", &request->bytes) != 1)
-        errx(EX_DATAERR, "bytes failed");
+        errx(EX_DATAERR, "bytes failed\n%d: %s", lineno, full_line);
     if (sscanf(status, "%u", &request->status) != 1)
-        errx(EX_DATAERR, "status failed");
+        errx(EX_DATAERR, "status failed\n%d: %s", lineno, full_line);
+    free(full_line);
 }
 
 static void
