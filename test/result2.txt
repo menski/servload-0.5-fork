@@ -1,0 +1,18 @@
+Setup servload 
+URL: http://www.salbnet.org/
+File: test/test2.log Method: none Factor: 0
+Requests: 10 Sessions: 4 Duration: 14.000000 seconds
+Running servload... Done.
+[General]
+Total connections:               4
+Total requests:                  10 (done: 10 error: 0)
+[Network]
+Error connection reset:          0
+Error connection timeout:        0
+Error connection refused:        0
+[Requests]
+Missed SLA (5 seconds):          0 (SLA: 100.000000 percent)
+Error timeout (300 seconds):     0
+Error disrupt pipeline:          0
+[HTTP Service]
+Mismatch status:                 2 (404 Not Found: 2 5xx Server Error: 0)

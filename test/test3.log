@@ -1,0 +1,8 @@
+www.heise.de - - [11/Oct/2010:16:55:16.123 +0200] "GET / HTTP/1.1" 200 -
+www.heise.de - - [11/Oct/2010:16:55:20.123 +0200] "GET /newsticker/classic/ HTTP/1.1" 200 -
+www.heise.de - - [11/Oct/2010:16:55:20.123 +0200] "GET /newsticker/ HTTP/1.1" 200 -
+www.heise.de - - [11/Oct/2010:16:55:20.123 +0200] "GET /newsticker/archiv/ HTTP/1.1" 200 -
+www.heise.de - - [11/Oct/2010:16:55:32.123 +0200] "GET /foren/ HTTP/1.1" 200 -
+www.heise.de - - [11/Oct/2010:16:55:32.123 +0200] "GET /ct/ HTTP/1.1" 200 -
+www.heise.de - - [11/Oct/2010:16:55:32.123 +0200] "GET /ix/ HTTP/1.1" 200 -
+www.heise.de - - [11/Oct/2010:16:55:34.123 +0200] "GET /favicon.ico HTTP/1.1" 200 -

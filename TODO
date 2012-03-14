@@ -1,0 +1,11 @@
+servload TODO
+=============
+
+- implement SSL support
+- allow floating point factor to reduce requests
+- add const qualifier where it makes sense
+- async domain pipeline probably possible check for request IDs and find
+  corresponding request in read queue
+- warm-up ramp and tear-down phase
+- support HTTP multipart reponses
+

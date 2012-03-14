@@ -1,0 +1,10 @@
+www.salbnet.org - frank [11/Oct/2010:16:55:16 +0200] "GET / HTTP/1.1" 200 232
+www.salbnet.org - frank [11/Oct/2010:16:55:16 +0200] "GET /style.css HTTP/1.1" 200 184
+www.salbnet.org - - [11/Oct/2010:16:55:20 +0200] "GET /index.html HTTP/1.1" 200 332
+www.salbnet.org - - [11/Oct/2010:16:55:21 +0200] "GET /test/404 HTTP/1.1" 404 214
+www.salbnet.org - - [11/Oct/2010:16:55:22 +0200] "GET /test/404 HTTP/1.1" 200 214
+www.salbnet.org - heinz [11/Oct/2010:16:55:26 +0200] "GET / HTTP/1.1" 200 -
+svn.salbnet.org - - [11/Oct/2010:16:55:28 +0200] "GET /index.html HTTP/1.1" 200 332
+svn.salbnet.org - - [11/Oct/2010:16:55:29 +0200] "GET /test/404 HTTP/1.1" 404 214
+www.salbnet.org - - [11/Oct/2010:16:55:29 +0200] "GET /test/404 HTTP/1.1" 200 -
+www.salbnet.org - heinz [11/Oct/2010:16:55:30 +0200] "GET /style.css HTTP/1.1" 200 184

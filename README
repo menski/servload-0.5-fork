@@ -1,0 +1,9 @@
+servload
+========
+
+servload originated as part of salbnet, a load balancing framework. servload can
+measure performance of services. Therefore servload uses requests and responses 
+to determine performance metrics. servload loads and maybe modifies a given log
+file and issues the resulting requests.
+
+See INSTALL file for installation notes.

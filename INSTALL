@@ -1,0 +1,25 @@
+servload installation
+=====================
+
+Requirements
+------------
+
+A C-compiler (for example GCC), OpenSSL (http://www.openssl.org/) and Make is 
+needed to build servload. Supported platforms are Linux and OpenBSD.
+
+Installation from source
+------------------------
+
+Extract and compile servload:
+
+# tar xzf servload-X.Y.tar.gz
+# cd servload/
+# make
+
+Compile and run tests without installation:
+
+# make test
+
+Install servload:
+
+# make install

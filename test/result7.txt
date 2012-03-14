@@ -1,0 +1,18 @@
+Setup servload
+URL: http://www.heise.de/
+File: test/test3.log Method: none Factor: 0
+Requests: 8 Sessions: 1 Duration: 18.000000 seconds
+Running servload... Done.
+[General]
+Total connections:               4
+Total requests:                  8 (done: 4 error: 4)
+[Network]
+Error connection reset:          0
+Error connection timeout:        0
+Error connection refused:        0
+[Requests]
+Missed SLA (5 seconds):          0 (SLA: 100.000000 percent)
+Error timeout (300 seconds):     0
+Error disrupt pipeline:          4
+[HTTP Service]
+Mismatch status:                 0 (404 Not Found: 0 5xx Server Error: 0)
