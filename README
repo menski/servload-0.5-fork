@@ -7,3 +7,36 @@ to determine performance metrics. servload loads and maybe modifies a given log
 file and issues the resulting requests.
 
 See INSTALL file for installation notes.
+
+Methods to modify the log:
+    fast
+        - replay log as fast as possible (e.g. ignore timestamps)
+        - limiting factor is the allowed number of open file descriptors
+          (see ulimit -n)
+
+    multiply [factor]
+        - multiply every request by factor given as argument
+        - factor: unsigned integer > 1
+
+    peak [factor]
+        - multiply every request by factor given as argument, iff the number of
+          requests with the same timestamp is greater or equal the median number
+          of request per second
+        - factor: unsigned integer > 1
+
+    score [factor]
+        - assigns every session a score value from 0 to 25 for each of the
+          following session characteristics: session length, session duration,
+          median thinktime, median transfered bytes
+        - to normalize the session characteristics the average absolute deviation
+          from median is calculated (see [1])
+        - if the value of a characteristic is greater than the average absolute
+          deviation the session obtains a score relative to the maximum value
+          of this characteristic
+        - the maximum score for a session is 100
+        - every session which achives a score greater than 50 is multiplied by
+          the given factor
+        - factor: unsigned integer > 1
+
+Links:
+[1] https://en.wikipedia.org/wiki/Average_absolute_deviation
