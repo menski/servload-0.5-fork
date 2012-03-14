@@ -780,7 +780,7 @@ svl_request_http_parse(svl_request_http_t *request, svl_url_t *url, char *line) 
         if (strsep(&line, "\"") == NULL || strsep(&line, "\"") == NULL) /* skip referrer */
             errx(EX_DATAERR, "referrer failed");
         if (strsep(&line, "\"") == NULL || /* skip agent start */
-            (agent = strsep(&line, "\"")) == NULL || strlen(agent) == 0)
+            (agent = strsep(&line, "\"")) == NULL)
             errx(EX_DATAERR, "agent failed");
     }
     if (agent == NULL || strcmp(agent, "-") == 0)
