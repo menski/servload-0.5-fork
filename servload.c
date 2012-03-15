@@ -1606,8 +1606,6 @@ svl_connection_error(svl_connection_t *connection, svl_statistic_t *statistic, i
         statistic->econnrefused++;
     else {
         errno = error;
-        svl_context->statistic->duration = svl_timestamp_now() - svl_context->statistic->duration;
-        svl_context_statistic(svl_context);
         err(EX_OSERR, "connection error");
     }
     if (descriptor->events == (POLLOUT | POLLWRBAND) &&
@@ -2099,6 +2097,8 @@ svl_context_free(svl_context_t *context) {
 
 static void
 svl_exit(void) {
+    svl_context->statistic->duration = svl_timestamp_now() - svl_context->statistic->duration;
+    svl_context_statistic(svl_context);
     svl_context_free(svl_context);
     svl_context = NULL;
 }
