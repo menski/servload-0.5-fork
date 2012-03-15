@@ -754,7 +754,7 @@ svl_request_http_parse(svl_request_http_t *request, svl_url_t *url, char *line) 
     const char *host, *user, *date = NULL, *method = NULL, *path, *version;
     const char *status = NULL, *bytes, *agent = NULL; /* agent is optional */
     unsigned int i;
-    static int lineno = 0;
+    static unsigned int lineno = 0;
     char *full_line = strdup(line);
     lineno++;
 
