@@ -12,7 +12,7 @@ Installation from source
 
 Extract and compile servload:
 
-# tar xzf servload-X.Y.tar.gz
+# tar xzf servload-n.n.tar.gz
 # cd servload/
 # make
 
@@ -23,3 +23,10 @@ Compile and run tests without installation:
 Install servload:
 
 # make install
+
+Usage
+-----
+
+Run servload:
+
+# ./servload url file [method] [factor]
