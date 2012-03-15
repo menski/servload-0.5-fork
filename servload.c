@@ -258,7 +258,7 @@ static double svl_request_median_wait(svl_request_t **, size_t);
 static void svl_request_free(svl_request_t *);
 static void svl_request_dns_parse(svl_request_dns_t *, svl_url_t *, char *);
 static void svl_request_dns_response(svl_request_dns_t *request, svl_statistic_dns_t *, svl_buffer_t *);
-static void svl_request_http_parse(svl_request_http_t *, svl_url_t *, char *);
+static void svl_request_http_parse(svl_request_http_t *, svl_url_t *, char *, unsigned int);
 static void svl_request_http_response(svl_request_http_t *, svl_statistic_http_t *, svl_buffer_t *);
 static void svl_request_http_status(svl_request_http_t *, svl_statistic_http_t *, svl_buffer_t *);
 static void svl_request_http_header(svl_request_http_t *, svl_buffer_t *);
@@ -749,14 +749,12 @@ svl_request_dns_response(svl_request_dns_t *request, svl_statistic_dns_t *statis
 }
 
 static void
-svl_request_http_parse(svl_request_http_t *request, svl_url_t *url, char *line) {
+svl_request_http_parse(svl_request_http_t *request, svl_url_t *url, char *line, unsigned int lineno) {
     const char *idempotent[] = { "DELETE", "GET", "HEAD", "OPTIONS", "PUT", "TRACE", NULL };
     const char *host, *user, *date = NULL, *method = NULL, *path, *version;
     const char *status = NULL, *bytes, *agent = NULL; /* agent is optional */
     unsigned int i;
-    static unsigned int lineno = 0;
     char *full_line = strdup(line);
-    lineno++;
 
     if ((host = strsep(&line, " ")) == NULL || strlen(host) == 0)
         errx(EX_DATAERR, "host failed\n%d: %s", lineno, full_line);
@@ -1185,17 +1183,19 @@ static void
 svl_sequence_load(svl_sequence_t *sequence, svl_url_t *url, svl_file_t *file) {
     svl_request_t *request;
     char *line;
+    unsigned int lineno = 0;
 
     svl_file_open(file);
     while (svl_file_read(file) > 0) {
         while ((line = svl_buffer_line(file->buffer)) != NULL) {
+            lineno++;
             line = svl_strtrim(line);
             request = svl_sequence_append(sequence, url);
             svl_request_setup(request);
             if (strcmp(url->scheme, "dns") == 0)
                 svl_request_dns_parse((svl_request_dns_t *)request, url, line);
             else if (strncmp(url->scheme, "http", 4) == 0)
-                svl_request_http_parse((svl_request_http_t *)request, url, line);            
+                svl_request_http_parse((svl_request_http_t *)request, url, line, lineno);
             if (sequence->length % SVL_STATUS == 0)
                 svl_sequence_status(sequence, "load %lu requests", sequence->length);
         }
